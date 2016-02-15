@@ -1,4 +1,5 @@
 /.idea
+/.rocketeer
 /vendor
 /node_modules
 Homestead.yaml
