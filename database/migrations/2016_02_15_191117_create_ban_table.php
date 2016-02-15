@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateBanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('bans', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('username')->unique();
-            $table->string('password', 60);
-            $table->rememberToken();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('reason_id')->references('id')->on('ban_reasons')->onDelete('cascade');
+            $table->timestamp('bandate');
+            $table->timestamp('todate');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('bans');
     }
 }
